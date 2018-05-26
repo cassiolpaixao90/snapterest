@@ -1,4 +1,4 @@
-import react, {Component} from "react";
+import React, {Component} from "react";
 import SnakiteStreamClient from "snapkite-stream-client";
 import  StreamTweet from "./StreamTweet";
 import Header from "./Header.react";
