@@ -1,18 +1,15 @@
-import React, {Component} from "react";
+import React, { Component } from 'react';
 import Stream from './Stream';
 import Collection from './Collection';
 
-
-class Application extends Component{
-
+class Application extends Component {
     state = {
-        collectionTweets:{}
+        collectionTweets: {}
     };
 
-    addTweetsToCollection = (tweet)=>{
-
+    addTweetToCollection = (tweet) => {
         const { collectionTweets } = this.state;
-        
+
         collectionTweets[tweet.id] = tweet;
 
         this.setState({
@@ -20,8 +17,7 @@ class Application extends Component{
         });
     };
 
-    removeTweetsFromCollection =(tweet) =>{
-
+    removeTweetFromCollection = (tweet) => {
         const { collectionTweets } = this.state;
 
         delete collectionTweets[tweet.id];
@@ -31,37 +27,36 @@ class Application extends Component{
         });
     };
 
-    removeAllTweetsFromCollection =()=>{
+    removeAllTweetsFromCollection = () => {
         this.setState({
             collectionTweets: {}
         });
     };
 
-    render(){
-
+    render() {
         const {
-            addTweetsToCollection,
-            removeTweetsFromCollection,
+            addTweetToCollection,
+            removeTweetFromCollection,
             removeAllTweetsFromCollection
-        }  = this;
+        } = this;
 
-        return(
+        return (
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-md-4 text-center">
-                        <Stream onAddTweetToCollection={addTweetsToCollection}/>
+                        <Stream onAddTweetToCollection={addTweetToCollection}/>
                     </div>
-                </div>
-                <div className="col-md-8">
-                    <Collection
-                        tweets={this.state.collectionTweets}
-                        onRemoveTweetFromCollection={removeTweetsFromCollection}
-                        onRemoveAllTweetsFromCollection={removeAllTweetsFromCollection}
-                    />
+                    <div className="col-md-8">
+                        <Collection
+                            tweets={this.state.collectionTweets}
+                            onRemoveTweetFromCollection={removeTweetFromCollection}
+                            onRemoveAllTweetsFromCollection={removeAllTweetsFromCollection}
+                        />
+                    </div>
                 </div>
             </div>
         );
     }
 }
 
-export default Application
+export default Application;

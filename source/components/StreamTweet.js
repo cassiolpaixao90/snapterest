@@ -1,11 +1,16 @@
-import React, {Component} from "react";
-import  Header from "./Header";
-import Tweet from "./Tweet";
+import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import Header from './Header';
+import Tweet from './Tweet';
 
-class StreamTweet extends Component{
+class StreamTweet extends Component {
+    state = {
+        numberOfCharactersIsIncreasing: null,
+        headerText: null
+    };
 
-    componentWillMount(){
-        console.log("'[Snapterest] StreamTweet: Running componentWillMount()'");
+    componentWillMount() {
+        console.log('[Snapterest] StreamTweet: 1. Running componentWillMount()');
 
         this.setState({
             numberOfCharactersIsIncreasing: true,
@@ -18,18 +23,17 @@ class StreamTweet extends Component{
         };
     }
 
-    componentDidMount(){
-        console.log('[Snapterest] StreamTweet: 3. Running componentDidMount()');
+    componentDidMount() {
+        console.log('[Snapterest] StreamTweet: 2. Running componentDidMount()');
 
         const componentDOMRepresentation = ReactDOM.findDOMNode(this);
-
         window.snapterest.headerHtml = componentDOMRepresentation.children[0].outerHTML;
         window.snapterest.tweetHtml = componentDOMRepresentation.children[1].outerHTML;
-    };
+    }
 
-    componentWillReceiveProps(nextProps){
-
+    componentWillReceiveProps(nextProps) {
         console.log('[Snapterest] StreamTweet: 4. Running componentWillReceiveProps()');
+
         const { tweet: currentTweet } = this.props;
         const { tweet: nextTweet } = nextProps;
 
@@ -53,12 +57,10 @@ class StreamTweet extends Component{
         });
 
         window.snapterest.numberOfReceivedTweets++;
-    };
-
+    }
 
     shouldComponentUpdate(nextProps, nextState) {
         console.log('[Snapterest] StreamTweet: 5. Running shouldComponentUpdate()');
-
         return (nextProps.tweet.text.length > 1);
     }
 
@@ -68,7 +70,6 @@ class StreamTweet extends Component{
 
     componentDidUpdate(prevProps, prevState) {
         console.log('[Snapterest] StreamTweet: 7. Running componentDidUpdate()');
-
         window.snapterest.numberOfDisplayedTweets++;
     }
 
@@ -78,26 +79,19 @@ class StreamTweet extends Component{
         delete window.snapterest;
     }
 
-
-
-    render(){
-        console.log("'[Snapterest] StreamTweet: Running render()'");
-
-        const { headerText } = this.state;
-        const { tweet, onAddTweetToCollection } = this.props;
+    render() {
+        console.log('[Snapterest] StreamTweet: Running render()');
 
         return (
             <section>
-                <Header text={headerText}>
-                    <Tweet
-                        tweet={tweet}
-                        onImageClick={onAddTweetToCollection}
-                    />
-                </Header>
+                <Header text={this.state.headerText} />
+                <Tweet
+                    tweet={this.props.tweet}
+                    onImageClick={this.props.onAddTweetToCollection}
+                />
             </section>
         );
     }
-
 }
 
 export default StreamTweet;

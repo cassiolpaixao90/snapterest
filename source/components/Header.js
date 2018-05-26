@@ -10,14 +10,14 @@ const headerStyle = {
 };
 
 class Header extends React.Component {
+
     render() {
-        const {text} = this.props;
+        const { text } = this.props;
 
         return (
             <h2 style={headerStyle}>{text}</h2>
         );
     }
-
 }
 
 Header.defaultProps = {

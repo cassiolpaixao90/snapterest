@@ -1,48 +1,48 @@
-import React, {Component} from "react";
-import SnakiteStreamClient from "snapkite-stream-client";
-import  StreamTweet from "./StreamTweet";
-import Header from "./Header.react";
+import React, { Component } from 'react';
+import SnapkiteStreamClient from 'snapkite-stream-client';
+import StreamTweet from './StreamTweet';
+import Header from './Header';
 
-class Stream extends Component{
-
+class Stream extends Component {
     state = {
-        tweet : null
+        tweet: null
     };
 
-    componentDidMount(){
-        SnakiteStreamClient.initialiseStream(this.handleNewTweet);
+    componentDidMount() {
+        console.log("componentDidMount");
+        SnapkiteStreamClient.initializeStream(this.handleNewTweet);
     }
 
-    componentWillUnmount(){
-        SnakiteStreamClient.destroyStream();
+    componentWillUnmount() {
+        console.log("componentWillUnmount");
+        SnapkiteStreamClient.destroyStream();
     }
 
-    handleNewTweet = (tweet) =>{
+    handleNewTweet = (tweet) => {
+        console.log("handleNewTweet", tweet);
         this.setState({
             tweet: tweet
         });
     };
 
-    render(){
-
+    render() {
         const { tweet } = this.state;
         const { onAddTweetToCollection } = this.props;
         const headerText = 'Waiting for public photos from Twitter...';
-        if( tweet ){
-            return(
-                <Stream
+
+        if (tweet) {
+            return (
+                <StreamTweet
                     tweet={tweet}
-                    onAddTweetToCollection={onAddTweetToCollection}
+                    onAddTweetToCollection={this.props.onAddTweetToCollection}
                 />
             );
         }
+
         return (
             <Header text={headerText}/>
         );
-    }
-
-    
-}
+    };
+};
 
 export default Stream;
-

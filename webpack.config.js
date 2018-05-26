@@ -2,7 +2,7 @@ const path = require('path');
 module.exports = {};
 
 module.exports = {
-    entry: './source/app.js', //teste
+    entry: './source/app.js', 
     output: {
         path: path.resolve(__dirname, 'build'),
         filename: 'snapterest.js'
